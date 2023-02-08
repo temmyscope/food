@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('order_items', function (Blueprint $table) {
             $table->bigInteger('order_id')->index();
             $table->bigInteger('product_id')->index();
-            $table->integer('qty')->default(1);
+            $table->integer('quantity')->default(1);
             $table->timestamps();
         });
     }

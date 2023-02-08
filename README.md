@@ -111,7 +111,7 @@ class ProductIngredient {
 
   product_id: int -> index, foreign (Product)
   ingredient_id: int -> index, foreign (Ingredient)
-  qty: float -> default(0) #In grams -> always convert kg to g (where 1kg -> 1000g)
+  quantity: float -> default(0) #In grams -> always convert kg to g (where 1kg -> 1000g)
 
   timestamp: string -> datetime #contains the updated_at & created_at fields
 
@@ -127,7 +127,7 @@ class Order {
 class OrderItem {
   order_id: int -> index, foreign (Order)
   product_id: int -> index, foreign (Product)
-  qty: int -> default(1)
+  quantity: int -> default(1)
   timestamp: string -> datetime #contains the updated_at & created_at fields
 
   belongsTo: Order

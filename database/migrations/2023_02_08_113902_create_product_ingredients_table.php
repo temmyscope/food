@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('product_ingredients', function (Blueprint $table) {
             $table->bigInteger('product_id')->index();
             $table->bigInteger('ingredient_id')->index();
-            $table->float('qty');
+            $table->float('quantity');
             $table->timestamps();
         });
     }
