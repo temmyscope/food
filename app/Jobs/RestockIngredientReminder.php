@@ -33,7 +33,7 @@ class RestockIngredientReminder implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to("admin email")->send(
+        Mail::to(env("ADMIN_EMAIL"))->send(
             new IngredientNeedRestock($this->ingredient)
         );
     }

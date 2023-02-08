@@ -3,8 +3,8 @@
 namespace App\Observers;
 
 use App\Models\Ingredient;
-use function App\Helpers\is50PercentOrLess;
 use App\Jobs\RestockIngredientReminder;
+use function App\Helpers\is50PercentOrLess;
 
 class IngredientObserver
 {

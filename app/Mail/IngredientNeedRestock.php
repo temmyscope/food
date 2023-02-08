@@ -31,7 +31,7 @@ class IngredientNeedRestock extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Ingredient Need Restock',
+            subject: 'Ingredient Needs Restock',
         );
     }
 

@@ -11,6 +11,7 @@ git clone https://github.com/temmyscope/foodics.git
 ```
 
 - After cloning the repo, update the `.env` file with the appropriate information, using `.env.example` as guideline
+- ***Note: `ADMIN_EMAIL` env key is the address you want all restock reminder to be sent***
 
 ### Run Code
 
@@ -24,7 +25,7 @@ docker compose --env-file .env up --build
 php artisan octane:start --workers=auto --task-workers=auto --server=swoole --host=0.0.0.0 --port=8080
 ```
 
-- Without Docker (Run Queue)
+- Without Docker (Run Queue in new terminal)
 ```sh
 php artisan queue:work --verbose --tries=3 --timeout=90
 ```
