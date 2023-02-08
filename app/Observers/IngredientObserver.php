@@ -2,8 +2,9 @@
 
 namespace App\Observers;
 
-use App\Jobs\RestockIngredientReminder;
 use App\Models\Ingredient;
+use function App\Helpers\is50PercentOrLess;
+use App\Jobs\RestockIngredientReminder;
 
 class IngredientObserver
 {
@@ -20,7 +21,12 @@ class IngredientObserver
      * update ingredient's needs_restock field to true and queue job to send mail
      *  to the admin if ingredient's available qty drops to or below 50% of the initial qty
     **/
-    RestockIngredientReminder::dispatch($ingredient)->afterCommit();
+    if ( is50PercentOrLess($ingredient->initial_qty, $ingredient->available_qty) &&  $ingredient->needs_restock) {
+        $ingredient->needs_restock = true;
+        $ingredient->saveQuietly();
+
+        RestockIngredientReminder::dispatch($ingredient)->afterCommit();
+    }
   }
 
 }
