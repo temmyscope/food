@@ -83,6 +83,7 @@ php artisan test
 ```php
 
 class Ingredient {
+
   id: int -> primary 
   name: string -> unique
   initial_qty: float -> default(0) #In grams -> always convert kg to g  (where 1kg -> 1000g)
@@ -91,24 +92,29 @@ class Ingredient {
   timestamp: string -> datetime #contains the updated_at & created_at fields
 
   belongsToMany: Product
+
 }
 
 class Product {
+
   id: int -> primary 
   name: string -> unique
   timestamp: string -> datetime #contains the updated_at & created_at fields
 
-  hasMany: Ingredient, ProductIngredient
+  belongsToMany: Ingredient
+
 }
 
 #This Model/Schema is used as an intermediate Model linking the Products and Ingredients
 
 class ProductIngredient {
+
   product_id: int -> index, foreign (Product)
   ingredient_id: int -> index, foreign (Ingredient)
   qty: float -> default(0) #In grams -> always convert kg to g (where 1kg -> 1000g)
 
   timestamp: string -> datetime #contains the updated_at & created_at fields
+
 }
 
 class Order {
