@@ -10,6 +10,18 @@ class Ingredient extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'initial_qty',
+        'needs_restock',
+        'available_qty',
+    ];
+
+    /**
      * The attributes that should be cast.
      *
      * @var array<string, string>
