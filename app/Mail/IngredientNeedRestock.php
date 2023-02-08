@@ -2,12 +2,13 @@
 
 namespace App\Mail;
 
+use App\Models\Ingredient;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Notifications\Messages\MailMessage;
 
 class IngredientNeedRestock extends Mailable
 {
@@ -16,9 +17,10 @@ class IngredientNeedRestock extends Mailable
     /**
      * Create a new message instance.
      *
+     * @param  App\Models\Ingredient  $ingredient
      * @return void
      */
-    public function __construct()
+    public function __construct(protected Ingredient $ingredient)
     {
         //
     }
@@ -38,13 +40,14 @@ class IngredientNeedRestock extends Mailable
     /**
      * Get the message content definition.
      *
-     * @return \Illuminate\Mail\Mailables\Content
+     * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function content()
     {
-        return new Content(
-            view: 'view.name',
-        );
+        return (new MailMessage)
+                ->greeting('Hello! Admin')
+                ->line("One of your ingredients, {$this->ingredient->name} is now below 50%! of its initial quantity.")
+                ->line('Thank you for using our application!');
     }
 
     /**

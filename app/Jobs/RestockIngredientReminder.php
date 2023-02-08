@@ -21,7 +21,7 @@ class RestockIngredientReminder implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @param  App\Models\Ingredient  $ingredient
+     * @param  App\Models\Ingredient $ingredient
      * @return void
      */
     public function __construct(protected Ingredient $ingredient){}
