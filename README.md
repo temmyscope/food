@@ -54,6 +54,7 @@ php artisan test
  - Redis PHP extension
  - Composer
  - Relational Database (MySQL preferrably, PostgresQL)
+ - Redis Server
 
 - Our system should meet the following requirements:
 
@@ -80,12 +81,12 @@ php artisan test
 class Ingredient {
   id: int -> primary 
   name: string -> unique
-  initial_qty: float -> default(0) #In grams -> always convert kg to g
-  available_qty: float -> default(0) #In grams -> always convert kg to g
-  needs_restock: enum(true, false) -> default(false) #In grams -> always convert kg to g
+  initial_qty: float -> default(0) #In grams -> always convert kg to g  (where 1kg -> 1000g)
+  available_qty: float -> default(0) #In grams -> always convert kg to g (where 1kg -> 1000g)
+  needs_restock: enum(true, false) -> default(false)
   timestamp: string -> datetime #contains the updated_at & created_at fields
 
-  belongsTo: Product
+  belongsToMany: Product
 }
 
 class Product {
@@ -93,15 +94,16 @@ class Product {
   name: string -> unique
   timestamp: string -> datetime #contains the updated_at & created_at fields
 
-  hasMany: Ingredient
+  hasMany: Ingredient, ProductIngredient
 }
 
+#This Model/Schema is used as an intermediate Model linking the Products and Ingredients
+
 class ProductIngredient {
-  id: int -> primary 
-  name: string -> unique
-  initial_qty: float -> default(0) #In grams -> always convert kg to g
-  available_qty: float -> default(0) #In grams -> always convert kg to g
-  needs_restock: enum(true, false) -> default(false) #In grams -> always convert kg to g
+  product_id: int -> index, foreign (Product)
+  ingredient_id: int -> index, foreign (Ingredient)
+  qty: float -> default(0) #In grams -> always convert kg to g (where 1kg -> 1000g)
+
   timestamp: string -> datetime #contains the updated_at & created_at fields
 }
 
@@ -114,7 +116,7 @@ class Order {
 
 class OrderItem {
   order_id: int -> index, foreign (Order)
-  product_id: int -> index foreign (Product)
+  product_id: int -> index, foreign (Product)
   qty: int -> default(1)
   timestamp: string -> datetime #contains the updated_at & created_at fields
 
@@ -125,6 +127,7 @@ class OrderItem {
 ### Conventions
 
   - All endpoints should return a JSON encoded data that at the least contain the accurate HTTP Response code and status (boolean)
+  - Multi-name tables/schema/models are chosen based on a `logical derivative` sense rather than `alphatical order`, as this is more convenient (in my opinion) for the sake of maintenance
 
 ### Important Notes
 
