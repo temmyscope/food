@@ -1,9 +1,11 @@
 ## Foodics App (Code Assessment)
 
-- Requirements To Run Application: Docker (Swoole, PHP 8.1^, Composer, )
+- Requirements To Run Application: Docker
+
 - This is the foodics API
 
 ### Set Up
+
 ```sh
 git clone https://github.com/temmyscope/foodics.git
 ```
@@ -40,7 +42,6 @@ php artisan queue:work --verbose --tries=3 --timeout=90
 php artisan test
 ```
 
-
 ### System Requirements
 
 - Application Requirements:
@@ -59,11 +60,13 @@ php artisan test
 - Our system should meet the following requirements:
 
   - Functional requirements:
+
     - Creation of Order.
     - Update Ingredient Stocks.
     - Notify Admin Of Ingredient Qty Level (when equal to or below 50% once).
 
-  - Non-functional requirements
+  - Non-functional requirements:
+
     - The system should be scalable and efficient.
 
 ### Design Pattern and Architecture
@@ -108,10 +111,10 @@ class ProductIngredient {
 }
 
 class Order {
-  id: int -> primary 
+  id: int -> primary
   timestamp: string -> datetime #contains the updated_at & created_at fields
 
-  hasMany: OrderItem
+  hasManyThrough: Product, OrderItem
 }
 
 class OrderItem {
