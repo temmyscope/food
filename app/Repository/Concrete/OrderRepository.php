@@ -39,7 +39,9 @@ class OrderRepository implements OrderRepositoryInterface
           $ingredient->save();
         }else{
           throw ValidationException::withMessages([
-            'errors' => [ 'product' => "Insufficient ingredients to make product with id:{$productData['product_id']}"],
+            'errors' => [ 
+              'product' => "Insufficient ingredients to make product with id:{$productData['product_id']}"
+            ],
           ]);
         }
       }
