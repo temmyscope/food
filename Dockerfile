@@ -43,8 +43,7 @@ RUN php artisan optimize:clear; \
   php artisan view:clear; \
   php artisan package:discover --ansi; \
   php artisan migrate \
-  php artisan test; \
-#  php artisan queue:flush \
+  php artisan queue:flush \
   php artisan event:cache; \
   php artisan config:cache; \
   php artisan view:cache; \

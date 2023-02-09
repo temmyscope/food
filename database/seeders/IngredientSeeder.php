@@ -24,7 +24,7 @@ class IngredientSeeder extends Seeder
                 'name' => 'Beef',
                 'initial_qty' => 20000,
                 'available_qty' => 20000,
-                'needs_restock' => false,
+                'needs_restock' => 'false',
                 'created_at'=> $now,
                 'updated_at'=> $now
             ],
@@ -32,7 +32,7 @@ class IngredientSeeder extends Seeder
                 'name' => 'Cheese',
                 'initial_qty' => 5000,
                 'available_qty' => 5000,
-                'needs_restock' => false,
+                'needs_restock' => 'false',
                 'created_at'=> $now,
                 'updated_at'=> $now
             ],
@@ -40,7 +40,7 @@ class IngredientSeeder extends Seeder
                 'name' => 'Onion',
                 'initial_qty' => 1000,
                 'available_qty' => 1000,
-                'needs_restock' => false,
+                'needs_restock' => 'false',
                 'created_at'=> $now,
                 'updated_at'=> $now
             ],

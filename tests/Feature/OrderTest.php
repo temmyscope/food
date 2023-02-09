@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-
 use Tests\TestCase;
+use App\Models\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class OrderTest extends TestCase
