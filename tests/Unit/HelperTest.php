@@ -3,7 +3,6 @@
 namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use function App\Helpers\is50PercentOrLess;
 
 class HelperTest extends TestCase
 {

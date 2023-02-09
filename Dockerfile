@@ -26,6 +26,8 @@ COPY . .
 COPY --from=vendor /var/www/html/vendor vendor
 COPY docker/start.sh /usr/local/bin/start
 
+RUN chmod u+x /usr/local/bin/start
+
 RUN mkdir -p \
   storage/framework/{sessions,views,cache} \
   storage/logs \
@@ -39,14 +41,14 @@ RUN mkdir -p \
 RUN php artisan optimize:clear; \
   php artisan config:clear; \
   php artisan view:clear; \
-  php artisan queue:flush; \
   php artisan package:discover --ansi; \
+  php artisan migrate \
+  php artisan test; \
+#  php artisan queue:flush \
   php artisan event:cache; \
   php artisan config:cache; \
   php artisan view:cache; \
-  php artisan route:cache; \
-  php artisan test; \
-  php artisan migrate;
+  php artisan route:cache;
 
 CMD ["/usr/local/bin/start"]
 

@@ -11,7 +11,10 @@ git clone https://github.com/temmyscope/foodics.git
 ```
 
 - After cloning the repo, update the `.env` file with the appropriate information, using `.env.example` as guideline
+
 - ***Note: `ADMIN_EMAIL` env key is the address you want all restock reminder to be sent***
+
+- Generate new laravel app key: `php artisan key:generate`
 
 ### Run Code
 
@@ -37,7 +40,7 @@ php artisan queue:work --verbose --tries=3 --timeout=90
 - With Docker
 
 ```sh
-
+docker exec -it foodics sh
 ```
 
 - Without Docker
