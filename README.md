@@ -39,9 +39,14 @@ php artisan queue:work --verbose --tries=3 --timeout=90
 
 - With Docker
 
-```sh
-docker exec -it foodics sh
-```
+  - Enter into App shell in interactive session
+  ```sh
+  docker exec -it foodics sh
+  ```
+  - Run test in shell
+  ```sh
+  php artisan test
+  ```
 
 - Without Docker
 ```sh

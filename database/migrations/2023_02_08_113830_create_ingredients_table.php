@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->float('initial_qty');
             $table->float('available_qty');
-            $table->enum('needs_restock', [true, false])->default(false);
+            $table->enum('needs_restock', ['true', 'false'])->default('false');
             $table->timestamps();
         });
     }
