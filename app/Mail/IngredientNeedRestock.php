@@ -8,7 +8,6 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Notifications\Messages\MailMessage;
 
 class IngredientNeedRestock extends Mailable
 {
@@ -20,10 +19,7 @@ class IngredientNeedRestock extends Mailable
      * @param  App\Models\Ingredient  $ingredient
      * @return void
      */
-    public function __construct(protected Ingredient $ingredient)
-    {
-        //
-    }
+    public function __construct(protected Ingredient $ingredient){}
 
     /**
      * Get the message envelope.
@@ -40,14 +36,16 @@ class IngredientNeedRestock extends Mailable
     /**
      * Get the message content definition.
      *
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
+     * @return \Illuminate\Mail\Mailables\Content
+    **/
     public function content()
     {
-        return (new MailMessage)
-                ->greeting('Hello! Admin')
-                ->line("One of your ingredients, {$this->ingredient->name} is now below 50%! of its initial quantity.")
-                ->line('Thank you for using our application!');
+        return new Content(
+            markdown: 'emails.restock-ingredient',
+            with: [
+                'name' => $this->ingredient->name,
+            ],
+        );
     }
 
     /**
