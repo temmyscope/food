@@ -8,14 +8,13 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class OrderTest extends TestCase
 {
+
     use RefreshDatabase;
 
     public function test_order_is_valid()
     {
         //this order should fail because its structure would fail validation
-        $response = $this->postJson('/api/order', [
-            "products" => []
-        ]);
+        $response = $this->postJson('/api/order', [ "products" => [] ]);
         $response->assertStatus(422);
 
         //this order should fail because it orders above the available ingredient stock
@@ -25,7 +24,6 @@ class OrderTest extends TestCase
             ]
         ]);
         $response->assertStatus(422);
-
 
         //this order should be successful because it's valid in structure and product quantity
         $response = $this->postJson('/api/order', [
@@ -40,7 +38,7 @@ class OrderTest extends TestCase
      * test if the order succeeds and persists in db
      *
      * @return void
-     */
+    **/
     public function test_order_success_and_persistence()
     {
         //order should be empty before first order is sent
