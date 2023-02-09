@@ -1,0 +1,25 @@
+version: '3'
+services:
+
+  user:
+    image: user
+    container_name: user
+    volumes:
+      - ./:/var/www/html
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - 8080
+    restart: always
+    environment:
+      CONTAINER_ROLE: app
+
+networks:
+  default:
+    name: pc-network
+    external: true
+
+volumes:
+  cache:
+    driver: local

@@ -24,6 +24,7 @@ RUN addgroup -S octane && adduser -S octane -G octane
 
 COPY . .
 COPY --from=vendor /var/www/html/vendor vendor
+COPY docker/start.sh /usr/local/bin/start
 
 RUN mkdir -p \
   storage/framework/{sessions,views,cache} \
@@ -46,6 +47,8 @@ RUN php artisan optimize:clear; \
   php artisan route:cache; \
   php artisan test; \
   php artisan migrate;
+
+CMD ["/usr/local/bin/start"]
 
 EXPOSE 8080
 
