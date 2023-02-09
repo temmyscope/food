@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Testing\Fluent\AssertableJson;
 
 class OrderTest extends TestCase
 {
@@ -15,7 +16,7 @@ class OrderTest extends TestCase
     {
         //this order should fail because its structure would fail validation
         $response = $this->postJson('/api/order', [ "products" => [] ]);
-        $response->assertStatus(422)->assertJson(["status" => false]);
+        $response->assertStatus(422)->assertJson(fn (AssertableJson $json) => $json->has('errors'));
 
         //this order should fail because it orders above the available ingredient stock
         $response = $this->postJson('/api/order', [
@@ -23,7 +24,7 @@ class OrderTest extends TestCase
                 [ "product_id" => 1, "quantity" => 3000 ]
             ]
         ]);
-        $response->assertStatus(422)->assertJson(["status" => false]);
+        $response->assertStatus(422)->assertJson(fn (AssertableJson $json) => $json->has('errors'));
 
         //this order should be successful because it's valid in structure and product quantity
         $response = $this->postJson('/api/order', [

@@ -30,19 +30,20 @@ class OrderRepository implements OrderRepositoryInterface
 
         //check if the ingredient available is enough to produce the qty of burgers (products) ordered
         if ( ($product_ingredient->quantity * $product_data['quantity']) <= $ingredient->available_qty ) {
-          //Add OrderItem to the order
-          array_push($order_items, new OrderItem($product_data) );
           //reduce the available quantity
           $ingredient->available_qty -= $product_ingredient->quantity * $product_data['quantity'];
           $ingredient->save();
         }else{
           throw ValidationException::withMessages([
             'errors' => [
-              'product' => "Insufficient ingredients to make product with id:{$product_data['product_id']}"
+              'product' => "Insufficient `{$ingredient->name}` to make product with id: {$product_data['product_id']}"
             ],
           ]);
         }
       }
+
+      //Add OrderItem to the order if code gets here: meaning Exception did not get thrown
+      array_push($order_items, new OrderItem($product_data) );
     }
 
     $order->items()->saveMany($order_items);
