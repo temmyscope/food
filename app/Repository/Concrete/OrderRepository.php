@@ -20,34 +20,32 @@ class OrderRepository implements OrderRepositoryInterface
     $order = new Order();
     $order->save();
 
-    $orderItems = [];
+    $order_items = [];
 
-    foreach( $request->products as $productData ){
-      //$product = Product::with(['ingredients'])->where('id', $productData->product_id)->first();
-
-      $product_ingredients = ProductIngredient::where('product_id', $productData['product_id'])->get();
+    foreach( $request->products as $product_data ){
+      $product_ingredients = ProductIngredient::where('product_id', $product_data['product_id'])->get();
 
       foreach ($product_ingredients as $product_ingredient) {
         $ingredient = Ingredient::find($product_ingredient->ingredient_id);
 
         //check if the ingredient available is enough to produce the qty of burgers (products) ordered
-        if ( ($product_ingredient->quantity * $productData['quantity']) <= $ingredient->available_qty ) {
+        if ( ($product_ingredient->quantity * $product_data['quantity']) <= $ingredient->available_qty ) {
           //Add OrderItem to the order
-          array_push($orderItems, new OrderItem($productData) );
+          array_push($order_items, new OrderItem($product_data) );
           //reduce the available quantity
-          $ingredient->available_qty -= $product_ingredient->quantity * $productData['quantity'];
+          $ingredient->available_qty -= $product_ingredient->quantity * $product_data['quantity'];
           $ingredient->save();
         }else{
           throw ValidationException::withMessages([
             'errors' => [
-              'product' => "Insufficient ingredients to make product with id:{$productData['product_id']}"
+              'product' => "Insufficient ingredients to make product with id:{$product_data['product_id']}"
             ],
           ]);
         }
       }
     }
 
-    $order->items()->saveMany($orderItems);
+    $order->items()->saveMany($order_items);
     $order->refresh();
 
     return $this->respondWithSuccess(code:201, data: ['order' => $order->items]);

@@ -138,7 +138,10 @@ class OrderItem {
 
 ### Conventions
 
-  - All endpoints should return a JSON encoded data that at the least contain the accurate HTTP Response code and status (boolean)
+  - All endpoints should return a JSON encoded data that at the least contain the accurate HTTP Response code and a status value (boolean). The exception(s) to this rule (i.e. returning status value) is/are thrown `Exception`(s) - no pun intended.
+  
+  - All variables make use of `snake_case`, properties, functions and method names make use of `camelCase`; while namespaces and class names make use of `PascalCase`.
+
   - Multi-name tables/schema/models are chosen based on a `logical derivative` sense rather than `alphatical order`, as this is more convenient (in my opinion) for the sake of maintenance
 
 ### Important Notes
