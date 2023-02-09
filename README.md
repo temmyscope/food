@@ -151,4 +151,10 @@ class OrderItem {
 
 - Would be nice to use `laravel sail` but I have a preferred `openswoole/swoole` docker container, hence I would be using `docker` and `docker compose` directly instead of `sail`
 
+- Redis `conf` file configurations were added to prevent external connection to the redis server
+
 - Docker was not required in the assessment but it's the way to go if we're to reduce inconsistencies across environments and add reasonable amount of automation
+
+- While a docker configuration has been provided, the project can work outside Docker as long as there is a `redis` and `MySQL` database servers available and `.env` should be updated appropriately to prevent issues
+
+- If I were to addd `nginx` to the project, with a few environment configuration updates, the project would be `production ready`.
