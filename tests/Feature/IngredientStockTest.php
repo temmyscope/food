@@ -59,8 +59,9 @@ class IngredientStockTest extends TestCase
         $this->assertDatabaseHas(Ingredient::class, [
             "name" => "Onion", "initial_qty" => 1000, "available_qty" => (1000-40)
         ]);
-    
-        $response->assertStatus(200);
+        
+        //assert that the test was successful
+        $response->assertStatus(201)->assertJson(["status" => true]);
     }
 
 }
