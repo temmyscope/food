@@ -17,7 +17,9 @@ git clone https://github.com/temmyscope/foodics.git
 
 - With Docker
 ```sh
-docker compose --env-file .env up --build
+docker compose --env-file .env build
+
+docker compose --env-file .env up -d
 ```
 
 - Without Docker (Start Server)
