@@ -14,8 +14,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['prefix' => 'api'])->group(function(){
-
-  Route::post('/order', [ OrderController::class, 'createOrder' ]);
-
-});
+Route::post('/order', [ OrderController::class, 'createOrder' ]);
