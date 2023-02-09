@@ -15,6 +15,27 @@ services:
     environment:
       CONTAINER_ROLE: app
 
+  redis:
+    image: redis:7.0.4-alpine
+    container_name: foodics_redis
+    restart: always
+    expose:
+      - 6379
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - ./docker/redis:/var/lib/redis/data
+
+  queue:
+    image: user
+    depends_on:
+      - user
+    volumes:
+      - .:/var/www/html
+    environment:
+      CONTAINER_ROLE: queue
+      QUEUE_DRIVER: redis
+      REDIS_HOST: redis
+
 networks:
   default:
     name: pc-network
