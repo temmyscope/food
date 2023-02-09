@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,4 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/order', []);
+Route::middleware(['prefix' => 'api'])->group(function(){
+
+  Route::post('/order', [OrderController::class, 'createOrder']);
+
+});
