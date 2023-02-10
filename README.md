@@ -187,6 +187,8 @@ class OrderItem {
 
 ### After-Thoughts, Caveats and Errors 
 
+- I believe that some performance improvements can be done on `OrderRepository::create` method but at the moment I can't seem to wrap my head around it
+
 - Would be nice to use `laravel sail` but I have a preferred `openswoole/swoole` docker container, hence I would be using `docker` and `docker compose` directly instead of `sail`
 
 - Redis `conf` file configurations were added to prevent external connection to the redis server
