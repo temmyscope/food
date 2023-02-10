@@ -189,6 +189,8 @@ class OrderItem {
 
 - An assumption made on the project is that in a future extension of the project, When Admin updates stock of `Ingredients`, the `needs_restock` field will be set to `false` and the `initial_qty` and `available_qty` fields are updated with the new stock quantity of the `Ingredient`.
 
+- I believe that some performance improvements can be done on `OrderRepository::create` method but at the moment I can't seem to wrap my head around it
+
 - Would be nice to use `laravel sail` but I have a preferred `openswoole/swoole` docker container, hence I would be using `docker` and `docker compose` directly instead of `sail`
 
 - Redis `conf` file configurations were added to prevent external connection to the redis server
