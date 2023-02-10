@@ -32,7 +32,19 @@ class OrderRepository implements OrderRepositoryInterface
         if ( ($product_ingredient->quantity * $product_data['quantity']) <= $ingredient->available_qty ) {
           //reduce the available quantity
           $ingredient->available_qty -= $product_ingredient->quantity * $product_data['quantity'];
-          $ingredient->save();
+          
+          //check if stock only just went down to or below 50% 
+          if (
+            $ingredient->needs_restock == "false" &&
+            is50PercentOrLess($ingredient->initial_qty, $ingredient->available_qty) 
+          ){
+            //set to true, so future updates don't trigger dispatch, except new stock has been added 
+            $ingredient->needs_restock = 'true';
+            $ingredient->save();
+          }else{
+            $ingredient->saveQuietly();
+          }
+
         }else{
           return $this->respondWithError(code:422, data: [
             'errors' => [

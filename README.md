@@ -174,7 +174,7 @@ class OrderItem {
 
 ### Conventions
 
-  - All endpoints should return a JSON encoded data that at the least contain the accurate HTTP Response code and a status value (boolean). The exception(s) to this rule (i.e. returning status value) is/are `Exception`(s) - no pun intended.
+  - All endpoints should return a JSON encoded data that at the least contain the accurate HTTP Response code and a status value (boolean). The exception(s) to this rule (i.e. returning status value) is/are `throw Exception`(s) - no pun intended.
   
   - All variables make use of `snake_case`, properties, functions and method names make use of `camelCase`; while namespaces and class names make use of `PascalCase`.
 
@@ -185,7 +185,9 @@ class OrderItem {
 - In a real life application where users order from their account, other fields such as `price`, `user_id`, etc. would be required on the `Order` Model.
 
 
-### After-Thoughts, Caveats and Errors 
+### After-Thoughts, Assumptions, Caveats and Errors 
+
+- An assumption made on the project is that in a future extension of the project, When Admin updates stock of `Ingredients`, the `needs_restock` field will be set to `false` and the `initial_qty` and `available_qty` fields are updated with the new stock quantity of the `Ingredient`.
 
 - Would be nice to use `laravel sail` but I have a preferred `openswoole/swoole` docker container, hence I would be using `docker` and `docker compose` directly instead of `sail`
 
