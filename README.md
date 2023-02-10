@@ -29,10 +29,10 @@ docker compose --env-file .env up -d
 #Enter into shell
 docker exec -it foodics sh  
 
-# to run migrations
+# run migrations
 php artisan migrate; 
 
-# to seed db with dataset
+# seed db with dataset
 php artisan db:seed;
 ```
 
@@ -191,3 +191,8 @@ class OrderItem {
 - If I were to addd `nginx` to the project, with a few environment configuration updates, the project would be `production ready`.
 
 - If you encounter this error `1030 Got error 168 - 'Unknown (generic) error from engine' from storage engine` while running the `php artisan migrate`, then it's a result of low storage left; first run `docker system prune -a  --volumes`, then rebuild container and rerun
+
+- The database is persisted to the harddisk, hence if you need a fresh start when you rebuild the container, enter the app shell and run the following commands in this order: 
+  - `php artisan migrate:rollback`
+  - `php artisan migrate`
+  - `php artisan db:seed`
