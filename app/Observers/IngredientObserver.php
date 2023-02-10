@@ -16,18 +16,16 @@ class IngredientObserver
     **/
     public function updated(Ingredient $ingredient)
     {
-        /**
-         * update ingredient's needs_restock field to 'true' and queue job to send mail
-         *  to the admin if ingredient's available qty drops to or below 50% of the initial qty
-        **/
         if ( 
-            !boolval($ingredient->needs_restock) &&
+            $ingredient->needs_restock == "false" &&
             is50PercentOrLess($ingredient->initial_qty, $ingredient->available_qty) 
         ) {
+            //set to true, so future updates don't trigger dispatch
             $ingredient->needs_restock = 'true';
             $ingredient->saveQuietly();
 
-            RestockIngredientReminder::dispatch($ingredient)->afterCommit();
+            // queue job to send mail to admin
+            RestockIngredientReminder::dispatch($ingredient);
         }
     }
 

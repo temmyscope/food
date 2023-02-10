@@ -28,7 +28,6 @@ class Ingredient extends Model
     **/
     protected $casts = [
         'initial_qty' => 'float',
-        'needs_restock' => 'bool',
         'available_qty' => 'float',
     ];
 

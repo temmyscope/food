@@ -64,20 +64,10 @@ php artisan queue:work --verbose --tries=3 --timeout=90
 php artisan test
 ```
 
-### Sample Request
+***If there are errors, please ensure migrations have run successfully first by running `php artisan migrate:status`, if there are pending migrations, then run: `php artisan migrate`; after which the tests can be re-run***
 
-```json 
-// POST http://127.0.0.1:8000/api/order
-// content-type: application/json
-{
-    "products": [
-        {
-            "product_id": 1,
-            "quantity": 2
-        }
-    ]
-}
-```
+### Send Request
+- see `request.http` file in the root folder to send requests
 
 - if request was successful, it should return `order` field containing all products ordered
 
@@ -91,7 +81,6 @@ php artisan test
  - JSON PHP extension
  - Pcntl PHP extension
  - PDO PHP extension
- - Redis PHP extension
  - Composer
  - Relational Database (MySQL preferrably, PostgresQL)
  - Redis Server
@@ -186,7 +175,7 @@ class OrderItem {
 
 - Also, a `meta` json might be needed (not compulsorily) on the `Order` schema - that would be typecasted to array on retrieval from the database; it would contain data that may be useful in printing a receipt e.g. Name of customer, etc.)
 
-### Caveats
+### After-Thoughts, Caveats and Errors 
 
 - Would be nice to use `laravel sail` but I have a preferred `openswoole/swoole` docker container, hence I would be using `docker` and `docker compose` directly instead of `sail`
 
@@ -194,6 +183,11 @@ class OrderItem {
 
 - Docker was not required in the assessment but it's the way to go if we're to reduce inconsistencies across environments and add reasonable amount of automation
 
+- I tried using `mailpit` docker image but could not get it to show the email, so I decided to use 
+[MailTrap](https://mailtrap.io/)
+
 - While a docker configuration has been provided, the project can work outside Docker as long as there is a `redis` and `MySQL` database servers available and `.env` should be updated appropriately to prevent issues
 
 - If I were to addd `nginx` to the project, with a few environment configuration updates, the project would be `production ready`.
+
+- If you encounter this error `1030 Got error 168 - 'Unknown (generic) error from engine' from storage engine` while running the `php artisan migrate`, then it's a result of low storage left; first run `docker system prune -a  --volumes`, then rebuild container and rerun

@@ -11,8 +11,6 @@ services:
         condition: service_healthy
       redis:
         condition: service_started
-      mail:
-        condition: service_started
     build:
       context: .
       dockerfile: Dockerfile
@@ -40,14 +38,6 @@ services:
       retries: 10
     volumes:
       - ./docker/db:/var/lib/mysql
-
-  mail:
-    image: axllent/mailpit
-    container_name: mailpit
-    ports:
-      - 1025:1025
-      - 8025:8025
-    restart: unless-stopped
 
   redis:
     image: redis:7.0.4-alpine
