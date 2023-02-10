@@ -42,8 +42,6 @@ RUN php artisan optimize:clear; \
   php artisan config:clear; \
   php artisan view:clear; \
   php artisan package:discover --ansi; \
-  php artisan migrate \
-  php artisan queue:flush \
   php artisan event:cache; \
   php artisan config:cache; \
   php artisan view:cache; \

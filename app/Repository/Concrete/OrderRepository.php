@@ -34,10 +34,10 @@ class OrderRepository implements OrderRepositoryInterface
           $ingredient->available_qty -= $product_ingredient->quantity * $product_data['quantity'];
           $ingredient->save();
         }else{
-          throw ValidationException::withMessages([
+          return $this->respondWithError(code:422, data: [
             'errors' => [
               'product' => "Insufficient `{$ingredient->name}` to make product with id: {$product_data['product_id']}"
-            ],
+            ]
           ]);
         }
       }

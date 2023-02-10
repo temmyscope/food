@@ -1,0 +1,12 @@
+####
+POST http://127.0.0.1:8080/api/order
+content-type: application/json
+
+{
+    "products": [
+        {
+            "product_id": 1,
+            "quantity": 10
+        }
+    ]
+}

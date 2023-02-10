@@ -20,9 +20,20 @@ git clone https://github.com/temmyscope/foodics.git
 
 - With Docker
 ```sh
+#build docker
 docker compose --env-file .env build
 
+#run it
 docker compose --env-file .env up -d
+
+#Enter into shell
+docker exec -it foodics sh  
+
+# to run migrations
+php artisan migrate; 
+
+# to seed db with dataset
+php artisan db:seed;
 ```
 
 - Without Docker (Start Server)
@@ -52,6 +63,23 @@ php artisan queue:work --verbose --tries=3 --timeout=90
 ```sh
 php artisan test
 ```
+
+### Sample Request
+
+```json 
+// POST http://127.0.0.1:8000/api/order
+// content-type: application/json
+{
+    "products": [
+        {
+            "product_id": 1,
+            "quantity": 2
+        }
+    ]
+}
+```
+
+- if request was successful, it should return `order` field containing all products ordered
 
 ### System Requirements
 
