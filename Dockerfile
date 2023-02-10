@@ -1,5 +1,3 @@
-# Accepted values: 8.1
-ARG PHP_OPENSWOOLE_VERSION=8.1
 ARG COMPOSER_VERSION=latest
 
 ###########################################

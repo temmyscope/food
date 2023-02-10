@@ -11,6 +11,8 @@ services:
         condition: service_healthy
       redis:
         condition: service_started
+      mail:
+        condition: service_started
     build:
       context: .
       dockerfile: Dockerfile
@@ -59,6 +61,14 @@ services:
       CONTAINER_ROLE: queue
       QUEUE_DRIVER: redis
       REDIS_HOST: redis
+
+  mail:
+    image: axllent/mailpit
+    container_name: mailpit
+    ports:
+      - 1025:1025
+      - 8025:8025
+    restart: unless-stopped
 
 networks:
   default:

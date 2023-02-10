@@ -14,27 +14,43 @@ git clone https://github.com/temmyscope/foodics.git
 
 - ***Note: `ADMIN_EMAIL` env key is the address you want all restock reminder to be sent***
 
+- ***Note: the values in the `.env.example` are sufficient for running this application using the preconfigured Dockerfile; only `APP_KEY` needs to be updated ***
+
 - Generate new laravel app key: `php artisan key:generate`
 
-### Run Code
+### Run Code (With Docker)
 
 - With Docker
 ```sh
-#build docker
+# build docker
 docker compose --env-file .env build
 
-#run it
+# run it
 docker compose --env-file .env up -d
 
-#Enter into shell
+# Enter into container shell by running: 
 docker exec -it foodics sh  
 
-# run migrations
+# run migrations within container shell
 php artisan migrate; 
 
-# seed db with dataset
+# seed db with dataset within container shell
 php artisan db:seed;
+
+# flush queue within container shell
+php artisan queue:flush
 ```
+
+### To view sent emails
+
+- Open (localhost)[!http://localhost:8025/] in the browser
+
+### To view queue logs
+
+- Run the following in the terminal while application is up: ```docker logs foodics-queue-1```
+
+
+### Run Code (Without Docker)
 
 - Without Docker (Start Server)
 ```sh
@@ -71,16 +87,12 @@ php artisan test
 
 - if request was successful, it should return `order` field containing all products ordered
 
-### System Requirements
+### System/Application Requirements
 
-- Application Requirements:
  - If you choose to run without using `docker-compose` and the preconfigured `Dockerfile`, then the following are the system requirements needed to run this application successfully:
 
  - PHP >= 8.1
  - Swoole PHP extension >= 4.5，with `swoole.use_shortname` set to `Off` in your `php.ini`
- - JSON PHP extension
- - Pcntl PHP extension
- - PDO PHP extension
  - Composer
  - Relational Database (MySQL preferrably, PostgresQL)
  - Redis Server
@@ -115,7 +127,7 @@ class Ingredient {
   name: string -> unique
   initial_qty: float -> default(0) #In grams -> always convert kg to g  (where 1kg -> 1000g)
   available_qty: float -> default(0) #In grams -> always convert kg to g (where 1kg -> 1000g)
-  needs_restock: enum(true, false) -> default(false)
+  needs_restock: enum('true', 'false') -> default('false')
   timestamp: string -> datetime #contains the updated_at & created_at fields
 
   belongsToMany: Product
@@ -133,7 +145,6 @@ class Product {
 }
 
 #This Model/Schema is used as an intermediate Model linking the Products and Ingredients
-
 class ProductIngredient {
 
   product_id: int -> index, foreign (Product)
@@ -163,17 +174,16 @@ class OrderItem {
 
 ### Conventions
 
-  - All endpoints should return a JSON encoded data that at the least contain the accurate HTTP Response code and a status value (boolean). The exception(s) to this rule (i.e. returning status value) is/are thrown `Exception`(s) - no pun intended.
+  - All endpoints should return a JSON encoded data that at the least contain the accurate HTTP Response code and a status value (boolean). The exception(s) to this rule (i.e. returning status value) is/are `Exception`(s) - no pun intended.
   
   - All variables make use of `snake_case`, properties, functions and method names make use of `camelCase`; while namespaces and class names make use of `PascalCase`.
 
-  - Multi-name tables/schema/models are chosen based on a `logical derivative` sense rather than `alphatical order`, as this is more convenient (in my opinion) for the sake of maintenance
+  - Multi-words tables/schema/models are derived based on a `logical derivative` sense rather than `alphatical order`, as this is more convenient (in my opinion) for the sake of maintenance. E.g. `product_ingredients` instead of `ingredient_products`, etc.
 
 ### Important Notes
 
 - In a real life application where users order from their account, other fields such as `price`, `user_id`, etc. would be required on the `Order` Model.
 
-- Also, a `meta` json might be needed (not compulsorily) on the `Order` schema - that would be typecasted to array on retrieval from the database; it would contain data that may be useful in printing a receipt e.g. Name of customer, etc.)
 
 ### After-Thoughts, Caveats and Errors 
 
@@ -183,8 +193,7 @@ class OrderItem {
 
 - Docker was not required in the assessment but it's the way to go if we're to reduce inconsistencies across environments and add reasonable amount of automation
 
-- I tried using `mailpit` docker image but could not get it to show the email, so I decided to use 
-[MailTrap](https://mailtrap.io/)
+- I used `mailpit` docker image but you can use an external provider like [MailTrap](https://mailtrap.io/) and add necessary `.env` values
 
 - While a docker configuration has been provided, the project can work outside Docker as long as there is a `redis` and `MySQL` database servers available and `.env` should be updated appropriately to prevent issues
 
