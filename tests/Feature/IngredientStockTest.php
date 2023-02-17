@@ -21,7 +21,8 @@ class IngredientStockTest extends TestCase
         /**
          * Pre-order tests for stock update
         **/
-        //product table should contain `Beef` before test runs
+
+        //product table should contain `Burger` before test runs
         $this->assertDatabaseHas(Product::class, [
             "name" => "Burger"
         ]);
@@ -47,19 +48,22 @@ class IngredientStockTest extends TestCase
         /**
          * Post-order tests for stock update
         **/
+
         //since 1 burger uses 150g of Beef, then 2 would use up (150*2)g
         $this->assertDatabaseHas(Ingredient::class, [
             "name" => "Beef", "initial_qty" => 20000, "available_qty" => (20000-300)
         ]);
+
         //since 1 burger uses 30g of Cheese,, then 2 would use up (30*2)g 
         $this->assertDatabaseHas(Ingredient::class, [
             "name" => "Cheese", "initial_qty" => 5000, "available_qty" => (5000-60)
         ]);
+
         //since 1 burger uses 20g of Onion, then 2 would use up (20*2)g
         $this->assertDatabaseHas(Ingredient::class, [
             "name" => "Onion", "initial_qty" => 1000, "available_qty" => (1000-40)
         ]);
-        
+
         //assert that the test was successful
         $response->assertStatus(201)->assertJson(["status" => true]);
     }

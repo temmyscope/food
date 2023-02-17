@@ -189,21 +189,21 @@ class OrderItem {
 
 - An assumption made on the project is that in a future extension of the project, When Admin updates stock of `Ingredients`, the `needs_restock` field will be set to `false` and the `initial_qty` and `available_qty` fields are updated with the new stock quantity of the `Ingredient`.
 
-- I believe that some performance improvements can be done on `OrderRepository::create` method but at the moment I can't seem to wrap my head around it
+- I believe that some performance improvements can be done on `OrderRepository::create` method but at the moment I can't seem to wrap my head around it.
 
 - Would be nice to use `laravel sail` but I have a preferred `openswoole/swoole` docker container, hence I would be using `docker` and `docker compose` directly instead of `sail`
 
-- Redis `conf` file configurations were added to prevent external connection to the redis server
+- Redis `conf` file configurations were added to prevent external connection to the redis server.
 
-- Docker was not required in the assessment but it's the way to go if we're to reduce inconsistencies across environments and add reasonable amount of automation
+- Docker was not required in the assessment but it's the way to go if we're to reduce inconsistencies across environments and add reasonable amount of automation.
 
-- I used `mailpit` docker image but you can use an external provider like [MailTrap](https://mailtrap.io/) and add necessary `.env` values
+- I used `mailpit` docker image but you can use an external provider like [MailTrap](https://mailtrap.io/) and add necessary `.env` values.
 
-- While a docker configuration has been provided, the project can work outside Docker as long as there is a `redis` and `MySQL` database servers available and `.env` should be updated appropriately to prevent issues
+- While a docker configuration has been provided, the project can work outside Docker as long as there is a `redis` and `MySQL` database servers available and `.env` should be updated appropriately to prevent issues.
 
 - If I were to addd `nginx` to the project, with a few environment configuration updates, the project would be `production ready`.
 
-- If you encounter this error `1030 Got error 168 - 'Unknown (generic) error from engine' from storage engine` while running the `php artisan migrate`, then it's a result of low storage left; first run `docker system prune -a  --volumes`, then rebuild container and rerun
+- If you encounter this error `1030 Got error 168 - 'Unknown (generic) error from engine' from storage engine` while running the `php artisan migrate`, then it's a result of low storage left; first run `docker system prune -a  --volumes`, then rebuild container and rerun.
 
 - The database is persisted to the harddisk, hence if you need a fresh start when you rebuild the container, enter the app shell and run the following commands in this order: 
   - `php artisan migrate:rollback`

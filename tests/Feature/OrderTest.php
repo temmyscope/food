@@ -50,7 +50,7 @@ class OrderTest extends TestCase
                 [ "product_id" => 1, "quantity" => 1 ]
             ]
         ]);
-        
+
         //order should contain 1 item after first order is sent
         $this->assertDatabaseCount(Order::class, 1);
 

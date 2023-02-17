@@ -11,7 +11,7 @@ class IngredientObserver
     /**
      * Handle the Ingredient "updated" event.
      *
-     * @param  \App\Models\Device  $comment
+     * @param  \App\Models\Ingredient  $ingredient
      * @return void
     **/
     public function updated(Ingredient $ingredient)
