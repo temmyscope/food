@@ -5,6 +5,6 @@ use App\Http\Requests\OrderRequest;
 
 interface OrderRepositoryInterface{
 
-  public function create(OrderRequest $request);
+  public function create(array $products);
   
 }

@@ -20,7 +20,7 @@ class OrderController extends Controller
    */
   public function createOrder(OrderRequest $request)
   {
-    return $this->orderRepo->create($request);
+    return $this->orderRepo->create($request->producs);
   }
 
 }

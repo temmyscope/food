@@ -25,7 +25,7 @@ class OrderRequest extends FormRequest
     {
         return [
             'products' => 'required|array',
-            'products.*.product_id' => 'required|numeric|exists:App\Models\Product,id',
+            'products.*.product_id' => 'required|numeric|exists:products,id',
             'products.*.quantity' => 'required|numeric',
         ];
     }

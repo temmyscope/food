@@ -21,7 +21,7 @@ class IngredientStockTest extends TestCase
         /**
          * Pre-order tests for stock update
         **/
-
+        
         //product table should contain `Burger` before test runs
         $this->assertDatabaseHas(Product::class, [
             "name" => "Burger"
