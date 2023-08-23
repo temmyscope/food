@@ -7,7 +7,7 @@
 ### Set Up
 
 ```sh
-git clone https://github.com/temmyscope/foodics.git
+git clone https://github.com/temmyscope/food.git
 ```
 
 - After cloning the repo, update the `.env` file with the appropriate information, using `.env.example` as guideline
